@@ -29,17 +29,16 @@ public class MainActivity extends Activity {
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent batteryStatus = registerReceiver(null, filter);
 
-        int plugState = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+        int chargeState = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         String strState;
 
-        switch (plugState) {
-            case BatteryManager.BATTERY_PLUGGED_AC:
-            case BatteryManager.BATTERY_PLUGGED_USB:
-            case BatteryManager.BATTERY_PLUGGED_WIRELESS:
-                strState = "Plugged in";
+        switch (chargeState) {
+            case BatteryManager.BATTERY_STATUS_CHARGING:
+            case BatteryManager.BATTERY_STATUS_FULL:
+                strState = "charging";
                 break;
             default:
-                strState = "Not plugged in";
+                strState = "not charging";
         }
 
         TextView tv = (TextView) findViewById(R.id.textView);
